@@ -14,11 +14,6 @@ function add(project) {
   return db("projects").insert(project);
 }
 
-function remove(id) {
-  return db("projects")
-    .where({ id })
-    .del()
-    .then(() => {
-      return db("projects");
-    });
+async function remove(id) {
+  return await db("projects").where({ id }).del();
 }

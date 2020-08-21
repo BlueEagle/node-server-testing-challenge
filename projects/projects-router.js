@@ -14,7 +14,11 @@ router.post("/", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  Projects.remove(req.params.id).then((dbRes) => res.status(200).json(dbRes));
+  Projects.remove(req.params.id).then((dbRes) => {
+    if (dbRes === 0)
+      res.status(404).json({ error: "That project does not exist" }).end();
+    else res.status(200).json(dbRes).end();
+  });
 });
 
 module.exports = router;
